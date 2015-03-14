@@ -101,7 +101,7 @@ class Config (object):
         for a in self._properties:
             setattr(self, a, None)
 
-        self.arch_config = {self.target_arch: self}
+        self.arch_config = {}
         # Store raw os.environ data
         self._raw_environ = os.environ.copy()
         self._pre_environ = os.environ.copy()
@@ -166,6 +166,10 @@ class Config (object):
         self._migrate_work_dir_if_needed()
 
         self.do_setup_env()
+
+        self._create_path(self.local_sources)
+        self._create_path(self.sources)
+        self._create_path(self.logs)
 
         # Store current os.environ data
         for c in self.arch_config.values():
