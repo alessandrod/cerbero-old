@@ -150,11 +150,11 @@ def call(cmd, cmd_dir='.', fail=True):
                                        stderr=subprocess.STDOUT,
                                        stdout=StdOut(stream),
                                        env=os.environ.copy(), shell=shell)
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError, e:
         if fail:
             raise FatalError(_("Error running command: %s") % cmd)
         else:
-            ret = 0
+            ret = e.returncode
     return ret
 
 
